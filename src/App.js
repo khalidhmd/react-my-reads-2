@@ -37,6 +37,7 @@ class BooksApp extends React.Component {
                   {Object.keys(this.state.shelves).map(key => (
                     <BookShelf
                       key={key}
+                      shelfKey={key}
                       shelfName={this.state.shelves[key]}
                       books={this.state.myBooks}
                     />

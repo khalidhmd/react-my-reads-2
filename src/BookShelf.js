@@ -9,11 +9,13 @@ class BookShelf extends React.Component {
         <h2 className="bookshelf-title">{this.props.shelfName}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {books.map(book => (
-              <li key={book.id}>
-                <Book book={book} />
-              </li>
-            ))}
+            {books
+              .filter(book => book.shelf === this.props.shelfKey)
+              .map(book => (
+                <li key={book.id}>
+                  <Book book={book} />
+                </li>
+              ))}
           </ol>
         </div>
       </div>
