@@ -3,7 +3,7 @@ import Book from "./Book";
 class BookShelf extends React.Component {
   render() {
     const books = this.props.books || [];
-    console.log(books);
+
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.shelfName}</h2>
