@@ -1,10 +1,16 @@
 import React from "react";
 
 class BookShelf extends React.Component {
+  componentDidMount() {
+    const shelfBooks = this.props.books.filter(
+      book => book.shelf === this.props.key
+    );
+    console.log(this.props);
+  }
   render() {
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">Currently Reading</h2>
+        <h2 className="bookshelf-title">{this.props.shelfName}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
             <li>

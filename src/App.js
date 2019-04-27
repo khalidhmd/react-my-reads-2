@@ -6,8 +6,20 @@ import BookSearch from "./BookSearch";
 import BookShelf from "./BookShelf";
 
 class BooksApp extends React.Component {
-  state = {};
+  state = {
+    shelves: {
+      currentlyReading: "Currently Reading",
+      wantToRead: "Want to Read",
+      read: "Read"
+    },
+    myBooks: []
+  };
 
+  componentDidMount() {
+    BooksAPI.getAll().then(res => {
+      this.setState({ myBooks: res });
+    });
+  }
   render() {
     return (
       <div className="app">
@@ -22,9 +34,13 @@ class BooksApp extends React.Component {
               </div>
               <div className="list-books-content">
                 <div>
-                  <BookShelf />
-                  <BookShelf />
-                  <BookShelf />
+                  {Object.keys(this.state.shelves).map(key => (
+                    <BookShelf
+                      key={key}
+                      shelfName={this.state.shelves[key]}
+                      books={this.state.myBooks}
+                    />
+                  ))}
                 </div>
               </div>
               <div className="open-search">
