@@ -20,6 +20,15 @@ class BooksApp extends React.Component {
       this.setState({ myBooks: res });
     });
   }
+
+  updateBookShelf = (book, shelf) => {
+    book.shelf = shelf;
+    BooksAPI.update(book, shelf).then(res => {
+      this.setState(state => ({
+        myBooks: [...state.myBooks.filter(b => b.id !== book.id), book]
+      }));
+    });
+  };
   render() {
     return (
       <div className="app">
@@ -40,6 +49,7 @@ class BooksApp extends React.Component {
                       shelfKey={key}
                       shelfName={this.state.shelves[key]}
                       books={this.state.myBooks}
+                      updateBookShelf={this.updateBookShelf}
                     />
                   ))}
                 </div>
