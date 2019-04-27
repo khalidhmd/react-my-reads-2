@@ -5,16 +5,25 @@ import Book from "./Book";
 
 class BookSearch extends React.Component {
   state = {
-    books: []
+    books: [],
+    query: ""
   };
   searchBooks = query => {
-    BooksAPI.search(query).then(data => {
-      this.setState({ books: data });
-    });
+    this.setState({ query });
+    BooksAPI.search(query)
+      .then(data => {
+        if (query && data) {
+          this.setState({ books: data });
+        }
+      })
+      .catch(err => {
+        this.setState({ books: [] });
+      });
   };
   render() {
     const myBooks = this.props.myBooks || [];
-    const books = this.state.books;
+    let books = this.state.books || [];
+    if (!this.state.query) books = [];
     if (books.length > 0 && myBooks.length > 0) {
       books.forEach(book => {
         myBooks.forEach(myBook => {
@@ -42,6 +51,7 @@ class BookSearch extends React.Component {
             <input
               type="text"
               placeholder="Search by title or author"
+              value={this.state.query}
               onChange={e => {
                 this.searchBooks(e.target.value);
               }}
@@ -50,7 +60,7 @@ class BookSearch extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.books.map(book => (
+            {books.map(book => (
               <li key={book.id}>
                 <Book
                   book={book}
