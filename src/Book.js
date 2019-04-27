@@ -3,6 +3,7 @@ import React from "react";
 class Book extends React.Component {
   render() {
     const book = this.props.book;
+    if (!book.imageLinks) return null;
     return (
       <div className="book">
         <div className="book-top">

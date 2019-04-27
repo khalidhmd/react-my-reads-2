@@ -12,6 +12,7 @@ class BookSearch extends React.Component {
     this.setState({ query });
     BooksAPI.search(query)
       .then(data => {
+        console.log(data);
         if (query && data) {
           this.setState({ books: data });
         }
@@ -26,6 +27,7 @@ class BookSearch extends React.Component {
     if (!this.state.query) books = [];
     if (books.length > 0 && myBooks.length > 0) {
       books.forEach(book => {
+        book.shelf = "none";
         myBooks.forEach(myBook => {
           if (book.id === myBook.id) {
             book.shelf = myBook.shelf;
