@@ -12,7 +12,6 @@ class BookSearch extends React.Component {
     this.setState({ query });
     BooksAPI.search(query)
       .then(data => {
-        console.log(data);
         if (query && data) {
           this.setState({ books: data });
         }
